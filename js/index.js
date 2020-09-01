@@ -30,6 +30,7 @@ let products = [
 for (let i=0; i < carts.length; i++)    {
     carts[i].addEventListener('click', () => {
         cartNumbers(products[i]);
+        totalCost(products[i]);
     })
 }
 
@@ -41,9 +42,7 @@ function onLoadCartNumbers() {
     }
 }
 
-
 function cartNumbers(product)  {
-    // console.log('the product clicked is', product);
     let productNumbers = localStorage.getItem('cartNumbers');
 
     productNumbers = parseInt(productNumbers);
@@ -53,7 +52,7 @@ function cartNumbers(product)  {
         document.querySelector('.cart span').textContent = productNumbers + 1;
     } else  {
         localStorage.setItem('cartNumbers', 1);
-        document.querySelector('cart span').textContent = 1;
+        document.querySelector('.cart span').textContent = 1;
     }
 
     setItems(product);
@@ -83,6 +82,20 @@ function setItems(product)  {
     (cartItems));
 }
 
+function totalCost(product) {
+    // console.log("the total cost is" , "$" + product.price);
+let cartCost = localStorage.getItem('totalCost');
+// console.log('My cartCost is', cartCost);
+// console.log(typeof cartCost);
+// console.log(typeof product.price);
+
+    if (cartCost != null) {
+        cartCost = parseInt(cartCost);
+        localStorage.setItem('totalCost', cartCost + product.price);
+    } else {
+        localStorage.setItem('totalCost', product.price);
+    }
+}
 
 onLoadCartNumbers();
 
